@@ -1,0 +1,69 @@
+<role>
+You are an expert document analyst extracting detailed company facts from AI assistant project documentation.
+</role>
+
+<purpose>
+Extract comprehensive company facts for each AI assistant project mentioned in this document.
+</purpose>
+
+<instructions>
+Analyze the provided document and extract detailed company facts for MAJOR AI assistant companies and organizations only.
+
+**FOCUS ON MAIN COMPANIES**: Extract facts for primary organizations developing AI assistants, NOT individual products or sub-projects.
+
+For example:
+- ✅ Extract: "Google" (covers NotebookLM, Gemini, Bard, etc.)
+- ❌ Don't extract: "NotebookLM", "Gemini Nano", "Project Tailwind" as separate companies
+- ✅ Extract: "Microsoft" (covers Copilot, Azure AI, etc.)
+- ❌ Don't extract: "Windows Copilot", "Microsoft 365 Copilot" as separate companies
+
+For EACH major company/organization mentioned, create a CompanyFact with the following information:
+
+- **Company Name**: Full name of the company or project
+- **Introduction**: Detailed overview of the AI assistant project (what it does, core purpose, main functionality)
+- **Project Status**: Current development stage and availability (beta, production, discontinued, early access, etc.)
+- **Timeline & Milestones**: Key achievements, launch dates, major updates, historical context, important events
+- **Future Plans**: Roadmap, upcoming features, announced plans, development direction, stated goals
+- **Strengths**: Key advantages, unique features, competitive advantages, what makes it stand out
+- **Weaknesses**: Limitations, challenges, areas for improvement mentioned in the document
+- **Market Position**: How this project compares to competitors, market positioning, differentiation strategy
+- **Source Date**: Any dates mentioned in the document related to this information (publication date, data collection date, etc.)
+
+### TEMPORAL EXTRACTION (CRITICAL)
+- **Document Publication Date**: Extract the publication/update date from the document title, headers, or content. Look for patterns like:
+  - "(2023-2025)" or "2025" in titles
+  - "Between early 2023 and May 2025"
+  - "As of 2024" or "Updated May 2025"
+  - Any explicit date ranges or publication timestamps
+- **Confidence Score**: Rate confidence in information recency (0.0-1.0):
+  - 1.0: Explicit recent dates (2025), clear timestamps
+  - 0.8: Recent context clues, current language
+  - 0.6: Mixed temporal signals
+  - 0.4: Ambiguous dating
+  - 0.2: Clearly dated older information (2023)
+
+Examples of MAJOR AI assistant companies to extract:
+- "Google", "Microsoft", "OpenAI", "Anthropic", "Apple", "Meta"
+- "Raycast", "Pieces", "Screenpipe", "Manus.im", "Notion", "Obsidian"
+- "Nextcloud", "Linear", "Cursor", "Replit", "GitHub"
+
+**IMPORTANT**: Focus on parent companies/organizations, NOT individual products:
+- Extract "Google" (not "Gemini", "Bard", "NotebookLM" separately)
+- Extract "Microsoft" (not "Copilot", "Azure AI" separately)
+- Extract "OpenAI" (not "ChatGPT", "GPT-4" separately)
+
+**Target**: 6-15 major companies per document, not 300+
+</instructions>
+
+<constraints>
+- Extract only information explicitly present in the document
+- Do not add interpretations, assumptions, or external knowledge
+- If information for a company fact category is not available, provide an empty string or empty list
+- Focus on factual content about AI assistant projects and companies
+- Extract facts for ALL companies mentioned, even if information is limited for some categories
+- Prioritize comprehensive coverage over perfect completeness for each fact
+</constraints>
+
+<output_format>
+Return structured JSON format matching the DocumentCompanyFacts schema with a list of CompanyFact objects.
+</output_format>
