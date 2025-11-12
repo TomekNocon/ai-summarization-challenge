@@ -30,24 +30,21 @@ async def analysis_flow(
     # Get input documents
     input_docs = documents.filter_by(InputDocument)
 
-    # Step 1: Extract company facts from all documents in parallel
     company_facts_tasks = [
         extract_document_metadata(
             document=doc,
-            model=flow_options.small_model,  # Use cheaper model for extraction
+            model=flow_options.small_model,  # Use cheaper model
         )
         for doc in input_docs
     ]
 
     document_company_facts_list = await asyncio.gather(*company_facts_tasks)
 
-    # Step 2: CONSOLIDATE FACTS (NEW)
     consolidated_facts = await consolidate_company_facts_single_batch(
         all_company_facts=document_company_facts_list,
-        model=flow_options.core_model,  # Use core model for consolidation
+        model=flow_options.core_model,  # Use core model
     )
 
-    # Step 3: Create consolidated analysis document
     facts_summary = "# Consolidated Company Analysis\n\n"
     facts_summary += f"**Analysis Date**: {datetime.now().strftime('%Y-%m-%d')}\n"
     facts_summary += f"**Sources Processed**: {len(input_docs)} documents\n"
