@@ -14,12 +14,6 @@ class ProjectFlowOptions(FlowOptions):
     core_model: ModelName = Field(default="gpt-5")
     small_model: ModelName = Field(default="gpt-5-mini")
 
-    # Base task description - the overall project goal
-    base_task: str = Field(
-        default="detailed research report about companies developing AI assistants",
-        description="The overall project goal that guides all flows",
-    )
-
     # Legacy field for backward compatibility
     task_description: str = Field(
         default=(
@@ -36,33 +30,30 @@ class ProjectFlowOptions(FlowOptions):
         """Get stage-specific task description for focused processing."""
 
         tasks = {
-            "analysis": (
-                f"Analyze and consolidate documents for {self.base_task}. "
-                "Remove duplicate information while preserving essential details about "
-                "company status, timelines, key milestones, history, and future plans. "
-                "Group similar documents and create optimized versions for efficient writing. "
-                "Use only provided documents, do not add external knowledge. "
+            "meta": (
+                """Extract comprehensive company facts for each AI assistant project mentioned
+                in this document."""
             ),
+            "consolidate": (""),
             "planning": (
-                f"Create detailed structure and plan for {self.base_task}. "
-                "Design comprehensive organization including company introductions, "
-                "status analysis, timeline sections, comparative analysis, and conclusions. "
-                "Focus on logical flow and complete coverage of all required elements."
+                """Create a detailed, actionable report plan based on the consolidated
+                company analysis provided. The plan will
+                guide the writing stage to produce a cohesive, well-structured report."""
             ),
             "writing": (
-                f"Write comprehensive {self.base_task} with detailed company analysis. "
+                "Write comprehensive with detailed company analysis. "
                 "Start with detailed introduction to each AI assistant project. "
                 "Include status, timeline, key milestones, history and future plans. "
                 "Use only provided documents, do not add external knowledge."
             ),
             "review": (
-                f"Review and improve {self.base_task} for quality and completeness. "
+                "Review and improve for quality and completeness. "
                 "Verify all required sections are present and well-developed. "
                 "Check for accuracy, clarity, and alignment with project requirements. "
                 "Identify areas needing improvement or additional detail."
             ),
             "rewrite": (
-                f"Rewrite and finalize {self.base_task} incorporating review feedback. "
+                "Rewrite and finalize incorporating review feedback. "
                 "Create polished, comprehensive final version with all improvements. "
                 "Ensure professional quality and complete coverage of all requirements."
             ),

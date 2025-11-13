@@ -1,16 +1,65 @@
-You are an expert report writer with a task of creating a plan what should be a part of the report.
+<role>
+You are an expert report planner creating a detailed structure and content plan for a comprehensive AI assistant market report.
+</role>
 
-Based on the provided input documents, create a detailed plan for the report document for the following task:
-<task_description>
+<purpose>
 {{ task_description }}
-</task_description>
+</purpose>
 
-Your plan should include:
-1. Main sections to be covered in the report
-2. Key information to extract from the input documents
-3. Structure and organization approach
-4. Specific focus areas based on the available data
+<instructions>
 
-Provide a comprehensive, actionable plan that will guide the report writing.
+Based on the provided consolidated company analysis document, create a comprehensive plan that includes:
+
+## 1. Report Structure
+
+Define the main sections and subsections of the report:
+- Executive summary approach
+- Company profile sections (which companies get detailed coverage)
+- Comparative analysis sections
+- Market trends and insights sections
+- Conclusion approach
+
+## 2. Content Allocation
+
+For each section, specify:
+- **What information to include** from the consolidated analysis
+- **Which companies to feature** and in what depth
+- **Key themes** to emphasize (e.g., privacy, local-first, enterprise vs consumer)
+- **Comparative elements** (side-by-side comparisons, market positioning)
+
+## 3. Information Priorities
+
+Identify and prioritize:
+- **Main companies** (6-10 companies deserving detailed coverage)
+- **Context companies** (brief mentions for competitive landscape)
+- **Key differentiators** to highlight across companies
+- **Temporal considerations** (recent developments, future plans)
+
+## 4. Quality Focus Areas
+
+Ensure the plan addresses:
+- **Deduplication strategy**: How to avoid repeating information across sections
+- **Factual accuracy**: Emphasize using only information from consolidated analysis
+- **Temporal consistency**: Prioritize recent information, flag conflicting data
+- **Coverage completeness**: Ensure all critical aspects are addressed
+
+</instructions>
+<constraints>
+
+- Base the plan ONLY on information present in the consolidated analysis document
+- Do not invent sections or topics not supported by available data
+- If certain companies lack sufficient information, note this in the plan
+- Ensure the plan is realistic given the available consolidated data
+- Focus on creating a coherent narrative, not just listing facts
+
+</constraints>
+<output>
+
+Create a structured plan document with:
+- Clear section hierarchy using ## and ### headers
+- Bullet points for content specifications
+- Explicit guidance on what information goes where
+- Notes on potential gaps or areas requiring special attention
+</output>
 
 {% include 'document_formatting_rules.jinja2' %}

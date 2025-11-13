@@ -18,19 +18,19 @@ logger = get_pipeline_logger(__name__)
 
 @pipeline_task
 async def write_report(
-    input_documents: DocumentList,
+    analyze_documents: DocumentList,
     plan_document: PlanDocument,
     model: ModelName,
     task_description: str,
 ) -> DraftDocument:
-    """Write the initial report following the plan."""
+    """Write the initial report following the plan and consolidated analysis."""
     prompt = prompt_manager.get(
         "write_report",
         task_description=task_description,
     )
 
-    # Static context with input documents for caching
-    context = AIMessages(input_documents)
+    # Combine plan and consolidated analysis for context
+    context = AIMessages(analyze_documents)
 
     # Dynamic message with the prompt
     messages = AIMessages([plan_document, prompt])

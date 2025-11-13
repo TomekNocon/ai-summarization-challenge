@@ -23,10 +23,14 @@ logger = get_pipeline_logger(__name__)
 async def extract_document_metadata(
     document: InputDocument,
     model: ModelName,
+    task_description: str,
 ) -> DocumentCompanyFactsDoc:
     """Extract key metadata from a document for analysis and grouping."""
 
-    prompt = prompt_manager.get("extract_document_metadata")
+    prompt = prompt_manager.get(
+        "extract_document_metadata",
+        task_description=task_description,
+    )
 
     context = AIMessages([document])
     messages = AIMessages([prompt])

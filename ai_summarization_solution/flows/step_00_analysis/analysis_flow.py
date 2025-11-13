@@ -34,6 +34,7 @@ async def analysis_flow(
         extract_document_metadata(
             document=doc,
             model=flow_options.small_model,  # Use cheaper model
+            task_description=flow_options.get_task_for_stage("meta"),
         )
         for doc in input_docs
     ]

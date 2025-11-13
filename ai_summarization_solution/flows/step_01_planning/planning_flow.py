@@ -3,8 +3,8 @@
 from ai_pipeline_core import DocumentList, FlowConfig, pipeline_flow
 
 from ai_summarization.documents.flow import PlanDocument
-from ai_summarization.flow_options import ProjectFlowOptions
 from ai_summarization_solution.documents.flow import AnalyzeDocument
+from ai_summarization_solution.flow_options import ProjectFlowOptions
 
 from .tasks import plan_report
 
@@ -30,7 +30,7 @@ async def planning_flow(
     plan_doc = await plan_report(
         documents=analyze_docs,
         model=flow_options.core_model,
-        task_description=flow_options.task_description,
+        task_description=flow_options.get_task_for_stage("planning"),
     )
 
     # Return validated output
